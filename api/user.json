@@ -1,0 +1,13 @@
+{
+  "name": "Pablo Salgado",
+  "age": 28,
+  "favorite_books": [
+    {
+      "title": "Never Split the Difference: Negotiating As If Your Life Depended On It",
+      "number_of_pages": 288,
+      "language": "English",
+      "author": "Chris Voss",
+      "price": 17.99
+    }
+  ]
+}

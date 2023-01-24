@@ -1,0 +1,14 @@
+{
+  "author_name": "Chris Voss",
+  "author_description": "A 24 year veteran of the FBI, Chris Voss is one of the preeminent practitioners and professors of negotiating skills in the world. He is the founder and principal of The Black Swan Group, a consulting firm that provides training and advises Fortune 500 companies through complex negotiations. Voss has taught for many business schools, including the University of Southern California's Marshall School of Business, Georgetown University's McDonough School of Business, Harvard University, MIT's Sloan School of Management, and Northwestern University's Kellogg School of Management, among others.",
+  "author_books_written": 1,
+  "author_books": [
+    {
+      "title": "Never Split the Difference: Negotiating As If Your Life Depended On It",
+      "number_of_pages": 288,
+      "language": "English",
+      "price": 17.99
+    }
+  ],
+  "created_date": "2023-01-18T01:22:59.146Z"
+}
