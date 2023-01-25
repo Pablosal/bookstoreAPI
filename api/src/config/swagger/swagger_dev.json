@@ -172,7 +172,7 @@
     "/books": {
       "get": {
         "tags": ["Books"],
-        "summary": "Obtain data for books",
+        "summary": "Return all the books in the database",
         "description": "Do Crud operations in books table",
         "produces": ["application/json"],
         "responses": {
@@ -181,7 +181,39 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/User"
+                "$ref": "#/definitions/Book"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Books"],
+        "summary": "Add a book to books table",
+        "description": "Post a book to DB",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "book to ad to db",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "post a book to books table",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
               }
             }
           },
@@ -191,7 +223,84 @@
         }
       }
     },
-    "/books/{id}": {},
+    "/books/{id}": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Obtain a single book from table DB",
+        "description": "Obtain book from table by his ID",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "Book found and returned from table",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+
+      "put": {
+        "tags": ["Books"],
+        "summary": "Modify a book from books table by his id",
+        "description": "Obtain a book by his id and retrieve it in order to update with the body on request",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "book",
+            "in": "body",
+            "description": "book to ad to db",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an updated message and the new book with the updated information",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Books"],
+        "summary": "Delte a book from the table Books",
+        "description": "Obtain book by his id and deletes it from the table",
+        "produces": ["application/json"],
+
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "description": "Id from the book to delete",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a success message and returns the deleted book",
+            "schema": {
+              "$ref": "#/definitions/Book"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
     "/authors": {},
     "/authors/{id}": {}
   },
