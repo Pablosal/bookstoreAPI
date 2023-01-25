@@ -9,9 +9,9 @@ import { authorValidations } from '../validations/author.validations'
 import { createJsonWT, verifyJWTToken } from '../auth'
 import { userRouter as userRoutes } from '../routes/users.routes'
 import { userValidations } from '../validations/user.validations'
-import {bookRouter as bookRoutes} from '../routes/book.routes'
-
-
+import { bookRouter as bookRoutes } from '../routes/book.routes'
+import swaggerUI from 'swagger-ui-express'
+import swaggerDocument from '../config/swagger/swagger_dev.json'
 dotenv.config()
 const app = express()
 const connect = new BDConnection()
@@ -39,10 +39,10 @@ app.all("/api", async (req, res, next) => {
 })
 
 
-app.use('/api/books',bookRoutes )
+app.use('/api/books', bookRoutes)
 app.use('/api/authors', authorValidations, authorRoutes)
 app.use('/api/users', userValidations, userRoutes)
 
-
+app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 
 export default app

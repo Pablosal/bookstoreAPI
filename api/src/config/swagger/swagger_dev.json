@@ -1,0 +1,309 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api created to add authors, books and get your favorite books",
+    "version": "1.0.0",
+    "title": "Books API",
+    "contact": {
+      "email": "pablosalgadou@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "User",
+      "description": "Obtain data related to users"
+    },
+    {
+      "name": "Authors",
+      "description": "Obtain data related to authors"
+    },
+    {
+      "name": "Books",
+      "description": "Obtain data related to books"
+    }
+  ],
+  "schemes": ["http", "https"],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Finds All the Users",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "pageNum",
+            "type": "number",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageSize",
+            "type": "number",
+            "in": "query",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Find one user",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User Id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "patch": {
+        "tags": ["User"],
+        "summary": "Update one user",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization token with admin role",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["User"],
+        "summary": "Delete one user",
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "string",
+            "description": "User Id",
+            "required": true
+          },
+          {
+            "in": "header",
+            "name": "Authorization",
+            "description": "Authorization token with admin role",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
+    "/books": {
+      "get": {
+        "tags": ["Books"],
+        "summary": "Obtain data for books",
+        "description": "Do Crud operations in books table",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "list of all books from table, does not have limit for the momen",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/books/{id}": {},
+    "/authors": {},
+    "/authors/{id}": {}
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "user_email": {
+          "type": "string"
+        },
+        "user_name": {
+          "type": "string"
+        },
+        "user_password": {
+          "type": "string"
+        },
+        "user_birthdate": {
+          "type": "string"
+        },
+        "user_favorite_books": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Book"
+          }
+        },
+        "user_favorite_authors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Author"
+          }
+        }
+      }
+    },
+    "Book": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "number_of_pages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "language": {
+          "type": "string"
+        },
+        "ISBN": {
+          "type": "string"
+        },
+        "author": {
+          "$ref": "#/definitions/Author"
+        },
+        "date_of_publish": {
+          "type": "string"
+        }
+      }
+    },
+    "Author": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "author_name": {
+          "type": "string"
+        },
+        "author_age": {
+          "type": "integer"
+        },
+        "author_is_death": {
+          "type": "boolean"
+        },
+        "author_description": {
+          "type": "string"
+        },
+        "author_books_written": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "author_books": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Book"
+          }
+        }
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
