@@ -1,4 +1,4 @@
-import mongoose, { Model, Schema } from 'mongoose'
+import mongoose, { Schema } from 'mongoose'
 
 export const BookSchema = new Schema({
     title: String,
@@ -9,7 +9,6 @@ export const BookSchema = new Schema({
     ISBN: String,
     author: String,
     date_of_publish: Date,
-    created_date: { type: Date, inmutable: false, default: () => new Date().toISOString() }
 
 
 }, { timestamps: true })

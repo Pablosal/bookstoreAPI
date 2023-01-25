@@ -9,6 +9,7 @@ import { authorValidations } from '../validations/author.validations'
 import { createJsonWT, verifyJWTToken } from '../auth'
 import { userRouter as userRoutes } from '../routes/users.routes'
 import { userValidations } from '../validations/user.validations'
+import {bookRouter as bookRoutes} from '../routes/book.routes'
 
 
 dotenv.config()
@@ -38,6 +39,7 @@ app.all("/api", async (req, res, next) => {
 })
 
 
+app.use('/api/books',bookRoutes )
 app.use('/api/authors', authorValidations, authorRoutes)
 app.use('/api/users', userValidations, userRoutes)
 
