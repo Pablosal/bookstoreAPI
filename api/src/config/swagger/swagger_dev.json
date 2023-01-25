@@ -301,7 +301,56 @@
         }
       }
     },
-    "/authors": {},
+    "/authors": {
+      "get": {
+        "tags": ["Author"],
+        "summary": "Obtain al authors",
+        "description": "Get all authors from table, no limit added yet",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "All users from table will display",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Author"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Author"],
+        "summary": "Create a new author",
+        "description": "create an author from request body",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "author",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Author"
+            },
+            "description": "Author fields",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Author created in table",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Invalid tag value"
+          }
+        }
+      }
+    },
     "/authors/{id}": {}
   },
   "definitions": {
