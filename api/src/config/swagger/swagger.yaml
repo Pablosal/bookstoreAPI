@@ -1,0 +1,414 @@
+swagger: '2.0'
+info:
+  description: Api created to add authors, books and get your favorite books
+  version: 1.0.0
+  title: Books API
+  contact:
+    email: pablosalgadou@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: localhost:3000
+basePath: /api
+tags:
+  - name: User
+    description: Obtain data related to users
+  - name: Author
+    description: Obtain data related to authors
+  - name: Books
+    description: Obtain data related to books
+schemes:
+  - http
+  - https
+paths:
+  /user:
+    get:
+      tags:
+        - User
+      summary: Return all users from table
+      description: Find all users from table and returns them
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: list of all users from table
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+        '400':
+          description: Invalid status value
+    post:
+      tags:
+        - User
+      summary: Add a new user to users table
+      description: Post a user to DB
+      produces:
+        - application/json
+      parameters:
+        - name: user
+          in: body
+          description: new user to ad to db
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: post a user to user table
+          schema:
+            $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+  /user/{id}:
+    get:
+      tags:
+        - User
+      summary: Find one user
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: User Id
+          required: true
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid tag value
+    patch:
+      tags:
+        - User
+      summary: Update one user
+      description: Get user from table and the update the values from req body
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Book id
+          required: true
+        - name: user
+          in: body
+          schema:
+            $ref: '#/definitions/User'
+          description: new user to add
+          required: true
+      responses:
+        '200':
+          description: User updated
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid tag value
+    delete:
+      tags:
+        - User
+      summary: Delete one user
+      description: ''
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          type: string
+          description: User Id
+          required: true
+      responses:
+        '200':
+          description: User Deleted
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid tag value
+  /books:
+    get:
+      tags:
+        - Books
+      summary: Return all the books in the database
+      description: Do Crud operations in books table
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: list of all books from table, does not have limit for the momen
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+    post:
+      tags:
+        - Books
+      summary: Add a book to books table
+      description: Post a book to DB
+      produces:
+        - application/json
+      parameters:
+        - name: book
+          in: body
+          description: book to ad to db
+          required: true
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '200':
+          description: post a book to books table
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+  /books/{id}:
+    get:
+      tags:
+        - Books
+      summary: Obtain a single book from table DB
+      description: Obtain book from table by his ID
+      parameters:
+        - type: string
+          name: id
+          in: path
+          description: Book id
+          required: true
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Book found and returned from table
+          schema:
+            $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+    put:
+      tags:
+        - Books
+      summary: Modify a book from books table by his id
+      description: >-
+        Obtain a book by his id and retrieve it in order to update with the body
+        on request
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Book id
+          required: true
+        - name: book
+          in: body
+          description: book properties to change
+          required: true
+          schema:
+            $ref: '#/definitions/Book'
+      responses:
+        '200':
+          description: >-
+            Returns an updated message and the new book with the updated
+            information
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+    delete:
+      tags:
+        - Books
+      summary: Delte a book from the table Books
+      description: Obtain book by his id and deletes it from the table
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Id from the book to delete
+          required: true
+      responses:
+        '200':
+          description: Returns a success message and returns the deleted book
+          schema:
+            $ref: '#/definitions/Book'
+        '400':
+          description: Invalid status value
+  /authors:
+    get:
+      tags:
+        - Author
+      summary: Obtain al authors
+      description: Get all authors from table, no limit added yet
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: All users from table will display
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Author'
+        '400':
+          description: Invalid tag value
+    post:
+      tags:
+        - Author
+      summary: Create a new author
+      description: create an author from request body
+      produces:
+        - application/json
+      parameters:
+        - name: author
+          in: body
+          schema:
+            $ref: '#/definitions/Author'
+          description: Author fields
+          required: true
+      responses:
+        '200':
+          description: Author created in table
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid tag value
+  /authors/{id}:
+    get:
+      tags:
+        - Author
+      summary: Obtain a author from tabl
+      description: Obtain author from table by his ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Id from the author
+          required: true
+      responses:
+        '200':
+          description: Author found and returned
+          schema:
+            $ref: '#/definitions/Author'
+        '400':
+          description: Invalid status value
+    put:
+      tags:
+        - Author
+      summary: Obtain a author from tabl
+      description: Obtain author from table by his ID
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Id from the author
+          required: true
+      responses:
+        '200':
+          description: Author found and returned
+          schema:
+            $ref: '#/definitions/Author'
+        '400':
+          description: Invalid status value
+    delete:
+      tags:
+        - Author
+      summary: delete a author from table
+      description: Obtain author from table by his ID and deletes it
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          type: string
+          in: path
+          description: Id from the author
+          required: true
+      responses:
+        '200':
+          description: Author found and deleted, returned deleted author
+          schema:
+            $ref: '#/definitions/Author'
+        '400':
+          description: Invalid status value
+definitions:
+  User:
+    type: object
+    properties:
+      _id:
+        type: string
+      user_email:
+        type: string
+      user_name:
+        type: string
+      user_password:
+        type: string
+      user_birthdate:
+        type: string
+      user_favorite_books:
+        type: array
+        items:
+          $ref: '#/definitions/Book'
+      user_favorite_authors:
+        type: array
+        items:
+          $ref: '#/definitions/Author'
+  Book:
+    type: object
+    properties:
+      _id:
+        type: string
+      title:
+        type: string
+      price:
+        type: integer
+        format: int32
+      number_of_pages:
+        type: integer
+        format: int32
+      language:
+        type: string
+      ISBN:
+        type: string
+      author:
+        $ref: '#/definitions/Author'
+      date_of_publish:
+        type: string
+  Author:
+    type: object
+    properties:
+      _id:
+        type: integer
+        format: int64
+      author_name:
+        type: string
+      author_age:
+        type: integer
+      author_is_death:
+        type: boolean
+      author_description:
+        type: string
+      author_books_written:
+        type: integer
+        format: int32
+      author_books:
+        type: array
+        items:
+          $ref: '#/definitions/Book'
+  ApiResponse:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      type:
+        type: string
+      message:
+        type: string
