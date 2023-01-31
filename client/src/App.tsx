@@ -5,28 +5,52 @@ import Topbar from './components/navbar/Topbar';
 import { Container, Col, Row } from 'react-bootstrap';
 import BooksCarousel from './components/books_carousel/BooksCarousel';
 import BookCard from './components/books_card/BookCard';
-
+import HeroSection from './components/hero/HeroSection';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+import { Book } from './utils/types';
+async function fetchBooks() {
+  const res = await fetch('http://localhost:3000/api/books');
+  return res.json();
+}
 function App() {
   const [count, setCount] = useState([1, 1, 1, 1, 1, 1, 1, 1, 1]);
+  // Queries
+  const { data, status } = useQuery('books', fetchBooks);
+  console.log(data);
 
+  // // Mutations
+  // const mutation = useMutation(postTodo, {
+  //   onSuccess: () => {
+  //     // Invalidate and refetch
+  //     queryClient.invalidateQueries('todos');
+  //   },
+  // });
+  console.log(status);
+  if (status !== 'success') return <h1>Cargando</h1>;
   return (
     <div className="App">
       <Container>
-      <Topbar />
+        <Topbar />
         <Row>
           <Col></Col>
         </Row>
         <Row>
-          <BooksCarousel />
+          <HeroSection />
         </Row>
         <Row>
           <Col>
-            <h1>Libros destacados</h1>
+            <h1>Todos los libros</h1>
             <Row>
-              {count.map((n) => {
+              {data.books.map((book: Book) => {
                 return (
-                  <Col key={n * Math.random()}>
-                    <BookCard />
+                  <Col key={book._id}>
+                    <BookCard {...book} />
                   </Col>
                 );
               })}

@@ -1,0 +1,11 @@
+.bookCard__description {
+  overflow: hidden;
+  line-height: 1.5rem;
+  max-height: 6rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  display: block;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+}

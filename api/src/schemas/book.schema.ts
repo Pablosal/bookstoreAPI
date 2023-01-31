@@ -9,7 +9,7 @@ export const BookSchema = new Schema({
     ISBN: String,
     author: String,
     date_of_publish: Date,
-
+    image: String
 
 }, { timestamps: true })
 

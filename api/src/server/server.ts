@@ -40,7 +40,7 @@ app.all("/api", async (req, res, next) => {
 
 
 app.use('/api/books', bookRoutes)
-app.use('/api/authors', authorValidations, authorRoutes)
+app.use('/api/authors', authorRoutes)
 app.use('/api/users', userValidations, userRoutes)
 
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
