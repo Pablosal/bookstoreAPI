@@ -4,7 +4,7 @@ export const authorRoutes = Router()
 
 
 
-authorRoutes.route("/admin").delete(authorController.deleteAllAuthors)
+authorRoutes.route("/admin").delete(authorController.deleteAllAuthors).post(authorController.addManyAuthors)
 authorRoutes.route("/:id/:bookId").delete(authorController.removeAuthorBook)
 authorRoutes.route("/:id")
     .get(authorController.getAuthor)
