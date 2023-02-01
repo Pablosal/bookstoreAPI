@@ -112,7 +112,18 @@ class AuthorController {
         const updatedAuthor = await Author.findOneAndUpdate({ _id: id }, { ...req.body }, { new: true })
         res.status(200).json({ msg: "Updated User", updatedAuthor })
     }
-
+    async addManyAuthors(req: Request, res: Response) {
+        const { authors } = req.body
+        const addManyAuthors = await Author.insertMany(authors)
+        if (!addManyAuthors) {
+            res.status(400).json({
+                msg: "Error in the process"
+            })
+        }
+        res.status(200).json({
+            msg: "Authors added"
+        })
+    }
 }
 
 
