@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import { createJsonWT, generatePassword, verifyPassword } from "../auth";
+import { Author } from "../schemas/author.schema";
+import { bookModel } from "../schemas/book.schema";
 import userModel from "../schemas/user.schema";
 
 class UserController {
@@ -65,7 +67,90 @@ class UserController {
         res.status(200).json({ msg: "User Deleted", deletedUser })
 
     }
+    async removeAuthorBook(req: Request, res: Response) {
 
+        const { id, bookId } = req.params;
+        const validations = validationResult(req).array()
+
+        if (validations.length > 0) {
+
+            return res.status(400).json({ error: validations[0].msg })
+        }
+        try {
+            const author = await userModel.findOneAndUpdate({ _id: id }, { $pull: { user_favorite_books: { _id: bookId } } })
+            if (!author) {
+                res.status(400).json({ msg: "No user found" })
+            }
+            res.status(200).json({ msg: "Book removed" })
+
+        } catch (error) {
+            res.status(400).json({ msg: "Error in update" })
+
+        }
+
+    }
+    async addFavoriteBook(req: Request, res: Response) {
+        const { id } = req.params;
+        const newBook = await bookModel.create({ ...req.body })
+        const validations = validationResult(req).array()
+
+        if (validations.length > 0) {
+
+            return res.status(400).json({ error: validations[0].msg })
+        }
+        try {
+            const author = await userModel.findOneAndUpdate({ _id: id }, { $push: { user_favorite_books: newBook } })
+            if (!author) {
+                res.status(400).json({ msg: "No user found" })
+            }
+            res.status(200).json({ msg: "Great new book added" })
+
+        } catch (error) {
+            res.status(400).json({ msg: "Error in update" })
+
+        }
+    }
+    async removeFavoriteAuthor(req: Request, res: Response) {
+
+        const { id, bookId } = req.params;
+        const validations = validationResult(req).array()
+
+        if (validations.length > 0) {
+
+            return res.status(400).json({ error: validations[0].msg })
+        }
+        try {
+            const author = await userModel.findOneAndUpdate({ _id: id }, { $pull: { user_favorite_books: { _id: bookId } } })
+            if (!author) {
+                res.status(400).json({ msg: "No user found" })
+            }
+            res.status(200).json({ msg: "Book removed" })
+
+        } catch (error) {
+            res.status(400).json({ msg: "Error in update" })
+
+        }
+
+    }
+    async addFavoriteAuthor(req: Request, res: Response) {
+        const { id, authorId } = req.params;
+        const validations = validationResult(req).array()
+        if (validations.length > 0) {
+            return res.status(400).json({ error: validations[0].msg })
+        }
+        try {
+            const author = await Author.findById(authorId)
+            const userUpdated = await userModel.findOneAndUpdate({ _id: id }, { $push: { user_favorite_authors: author } })
+            if (!userUpdated) {
+                res.status(400).json({ msg: "No user found" })
+            }
+            res.status(200).json({ msg: "Great new author added to favorites" })
+
+        } catch (error) {
+            res.status(400).json({ msg: "Error in update" })
+
+        }
+    }
 
 }
 
