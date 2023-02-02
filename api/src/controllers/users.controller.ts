@@ -67,7 +67,7 @@ class UserController {
         res.status(200).json({ msg: "User Deleted", deletedUser })
 
     }
-    async removeAuthorBook(req: Request, res: Response) {
+    async removeFavoriteBook(req: Request, res: Response) {
 
         const { id, bookId } = req.params;
         const validations = validationResult(req).array()
