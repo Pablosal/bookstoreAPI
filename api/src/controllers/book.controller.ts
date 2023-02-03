@@ -47,6 +47,18 @@ class BookController {
         const book = await bookModel.findById(id)
         res.status(200).json({ book })
     }
+    async addManyBooks(req: Request, res: Response) {
+        const { books } = req.body
+        const addManyBooks = await bookModel.insertMany(books)
+        if (!addManyBooks) {
+            res.status(400).json({
+                msg: "Error in the process"
+            })
+        }
+        res.status(200).json({
+            msg: "Books added"
+        })
+    }
 }
 
 
