@@ -9,6 +9,9 @@ userRouter.route("/:id")
     .put(userController.updateUser)
 
 userRouter.post("/create-user", userController.createUser)
+userRouter.route("/favorite/author").post(userController.addFavoriteAuthor).delete(userController.removeFavoriteAuthor)
+userRouter.route("/favorite/book").post(userController.addFavoriteBook).delete(userController.removeFavoriteBook)
+userRouter.post("/create-user", userController.createUser)
 userRouter.get("/", userController.getAllUsers)
 
 
